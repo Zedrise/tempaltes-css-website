@@ -1,0 +1,74 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+h2 {
+    color: #008148;
+}
+
+table {
+    width: 60%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background: #008148;
+    color: white;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+.status {
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.status-menunggu {
+    background: gray;
+    color: white;
+}
+
+.status-diproses {
+    background: orange;
+    color: white;
+}
+
+.status-selesai {
+    background: green;
+    color: white;
+}
+
+a {
+    text-decoration: none;
+    padding: 10px 20px;
+    background: #008148;
+    color: white;
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+a:hover {
+    background: white;
+    color: #008148;
+    border: 2px solid #008148;
+}

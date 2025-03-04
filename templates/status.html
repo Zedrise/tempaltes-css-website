@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Status Pesanan</title>
+    <link rel="stylesheet" href="../static/status.css">
+</head>
+<body>
+    <h2>Status Pesanan untuk {{ nama }}</h2>
+    <table border="1">
+        <tr>
+            <th>Menu</th>
+            <th>Jumlah</th>
+            <th>Total</th>
+            <th>Status</th>
+        </tr>
+        {% for order in orders %}
+        <tr>
+            <td>{{ order[0] }}</td>
+            <td>{{ order[1] }}</td>
+            <td>${{ order[2] }}</td>
+            <td>{{ order[3] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <a href="/">Kembali</a>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin - Kelola Pesanan</title>
+    <link rel="stylesheet" href="../static/admin.css">
+    <script>
+        function updateStatus(orderId, newStatus) {
+            fetch('/update_status', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: orderId, status: newStatus })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Status berhasil diperbarui!");
+                    location.reload();
+                } else {
+                    alert("Gagal memperbarui status.");
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <h2>Daftar Pesanan</h2>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Nama</th>
+            <th>Menu</th>
+            <th>Harga</th>
+            <th>Jumlah</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Aksi</th>
+        </tr>
+        {% for order in orders %}
+        <tr>
+            <td>{{ order[0] }}</td>
+            <td>{{ order[1] }}</td>
+            <td>{{ order[2] }}</td>
+            <td>${{ order[3] }}</td>
+            <td>{{ order[4] }}</td>
+            <td>${{ order[5] }}</td>
+            <td>{{ order[6] }}</td>
+            <td>
+                {% if order[6] != "Selesai" %}
+                    <button onclick="updateStatus({{ order[0] }}, 'Diproses')">Diproses</button>
+                    <button onclick="updateStatus({{ order[0] }}, 'Selesai')">Selesai</button>
+                {% else %}
+                    ✔ Selesai
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

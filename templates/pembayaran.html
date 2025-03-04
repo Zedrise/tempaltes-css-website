@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pembayaran</title>
+    <link rel="stylesheet" href="../static/pembayaran.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+</head>
+<body>
+<header>
+    <a href="#" class="logo"><img src="../static/images2/logo2.jpeg" alt=""></a>
+</header>
+
+<br>
+<br>
+<!-- Menu -->
+<section class="shop">
+    <div class="heading">
+        <span>Shop Coffee</span>
+        <h1>Menu</h1>
+    </div>
+    <div class="shop-container">
+        <div class="box" onclick="isiForm('Macchiato', '11')">
+            <div class="box-img">
+                <img src="../static/images2/macc.png" rel="">
+            </div>
+            <div class="stars">
+                <i class='bx bxs-star'></i>
+                <i class='bx bxs-star'></i>
+                <i class='bx bxs-star'></i>
+                <i class='bx bxs-star'></i>
+                <i class='bx bxs-star-half'></i>
+            </div>
+            <h2>Macchiato</h2>
+            <span>$ 11</span>
+        </div>
+
+        <div class="box" onclick="isiForm('Cappucino', '10')">
+            <div class="box-img">
+                <img src="../static/images2/cappu.png" rel="">
+            </div>
+            <div class="stars">
+                <i class='bx bxs-star'></i>
+                <i class='bx bxs-star'></i>
+                <i class='bx bxs-star'></i>
+                <i class='bx bxs-star'></i>
+                <i class='bx bxs-star-half'></i>
+            </div>
+            <h2>Cappucino</h2>
+            <span>$ 10</span>
+        </div>
+
+        <div class="box" onclick="isiForm('Americano', '12')">
+            <div class="box-img">
+                <img src="../static/images2/amre.png" rel="">
+            </div>
+            <div class="stars">
+                <i class='bx bxs-star'></i>
+                <i class='bx bxs-star'></i>
+                <i class='bx bxs-star'></i>
+                <i class='bx bxs-star'></i>
+                <i class='bx bxs-star-half'></i>
+            </div>
+            <h2>Americano</h2>
+            <span>$ 12</span>
+        </div>
+    </div>
+</section>
+
+<br>
+<br>
+<br>
+
+<!-- Form -->
+<div class="container">
+    <h2>Masukan Menu Anda</h2>
+    <form id="pembayaran">
+        <label for="nama">Nama :</label>
+        <input type="text" id="nama" placeholder="Masukan Nama Anda" required>
+
+        <label for="menu">Nama Menu: </label>
+        <input type="text" id="menu" readonly>
+
+        <label for="harga">Harga: </label>
+        <input type="text" id="harga" readonly>
+
+        <label for="jumlah">Jumlah: </label>
+        <input type="number" id="jumlah" min="1" max="5" placeholder="Masukkan jumlah barang" required>
+
+        <div class="shop-btn-container">
+            <button type="button" class="btn" onclick="redirectToStatus()">Pesan</button>
+        </div>
+    </form>
+</div>
+
+<script>
+function redirectToStatus() {
+    const nama = document.getElementById("nama").value;
+    const menu = document.getElementById("menu").value;
+    const harga = document.getElementById("harga").value;
+    const jumlah = document.getElementById("jumlah").value;
+
+    if (!nama || !menu || !harga || !jumlah) {
+        alert("Harap isi semua field!");
+        return;
+    }
+
+    // Kirim data ke server menggunakan fetch
+    fetch('/pembayaran', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            nama: nama,
+            menu: menu,
+            harga: harga,
+            jumlah: jumlah,
+        }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            window.location.href = `/status/${nama}`;
+        } else {
+            alert("Gagal menyimpan data!");
+        }
+    });
+}
+
+function isiForm(namaMenu, hargaMenu) {
+    document.getElementById("menu").value = namaMenu;
+    document.getElementById("harga").value = `$${hargaMenu}`;
+    document.getElementById("jumlah").focus();
+}
+</script>
+</body>
+</html>
